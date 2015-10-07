@@ -37,7 +37,6 @@ class PushViewPush extends JViewLegacy
     $articleModel->setState('params', $appParams);
     $articlesModel->setState('params', $appParams);
 
-    //$article = $articleModel->getItem($articleId);
     $articles = $articlesModel->getItems();
 
     $articleArray = [];
@@ -47,6 +46,7 @@ class PushViewPush extends JViewLegacy
                         ];
     }
 
-    echo json_encode($articleArray);
+    //echo json_encode($articleArray);
+    echo "haha!";
 	}
 }

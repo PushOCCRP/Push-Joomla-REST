@@ -15,4 +15,15 @@ defined('_JEXEC') or die('Restricted access');
  */
 class PushController extends JControllerLegacy
 {
+  function articles() {
+      $view = $this->getView( 'articles', 'json' );
+      $view->setLayout( 'default' );
+      $view->display();
+  }
+
+  function search() {
+      $view = $this->getView( 'search', 'json' );
+      $view->setLayout( 'default' );
+      $view->display();
+  }
 }
