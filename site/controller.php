@@ -20,10 +20,4 @@ class PushController extends JControllerLegacy
       $view->setLayout( 'default' );
       $view->display();
   }
-
-  function search() {
-      $view = $this->getView( 'search', 'json' );
-      $view->setLayout( 'default' );
-      $view->display();
-  }
 }
