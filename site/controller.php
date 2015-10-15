@@ -20,4 +20,10 @@ class PushController extends JControllerLegacy
       $view->setLayout( 'default' );
       $view->display();
   }
+
+  function url_lookup() {
+      $view = $this->getView( 'urllookup', 'json');
+      $view->setLayout( 'default' );
+      $view->display();
+  }
 }
