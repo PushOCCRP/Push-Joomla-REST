@@ -44,9 +44,9 @@ class PushViewArticles extends JViewLegacy
     // Order it by the ordering field.
     $query->select('*');
     $query->from($db->quoteName('#__content'));
-    $query->order('ordering ASC');
+    $query->where("state = 1 AND language = 'en-GB'");
+    $query->order('publish_up DESC');
     $query->setLimit($limit);
-    $query->order('ordering ASC');
     //
     // Reset the query using our newly populated query object.
     $db->setQuery($query);
