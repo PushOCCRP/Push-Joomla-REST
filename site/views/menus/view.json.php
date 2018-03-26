@@ -46,7 +46,7 @@ class PushViewMenus extends JViewLegacy
     // Order it by the ordering field.
     $query->select('*');
     $query->from('#__menu');
-    $query->where('menutype="main" || menutype="topleft"');
+    $query->where('menutype="main" && language!="*" && language!="" || menutype="topleft" && language!="*" && language!=""');
    
     
     $db->setQuery((string)$query);
