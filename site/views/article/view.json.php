@@ -45,7 +45,7 @@ class PushViewArticle extends JViewLegacy
     $query->select('*');
     $query->from($db->quoteName('#__content'));
     $query->where("id = " . $article_id);
-    $query->setLimit(1);
+    //$query->setLimit(1);
     //
     // Reset the query using our newly populated query object.
     $db->setQuery($query);

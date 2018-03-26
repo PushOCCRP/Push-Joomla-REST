@@ -21,6 +21,19 @@ class PushController extends JControllerLegacy
       $view->display();
   }
 
+  function category_articles() {
+    $view = $this->getView( 'category_articles', 'json' );
+    $view->setLayout( 'default' );
+    $view->display();
+}
+
+  function categories() {
+    $view = $this->getView( 'categories', 'json' );
+    $view->setLayout( 'default' );
+    $view->display();
+}
+
+
   function url_lookup() {
       $view = $this->getView( 'urllookup', 'json');
       $view->setLayout( 'default' );
