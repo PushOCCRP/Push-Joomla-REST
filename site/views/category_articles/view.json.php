@@ -48,6 +48,7 @@ class PushViewCategory_articles extends JViewLegacy
     $query->select('*');
     $query->from('#__content');
     $query->where('catid="'.$id.'"');
+    $query->order_by('created desc limit"'.$page*$limit.',"'.$limit.'"');
     
     $db->setQuery((string)$query);
 
