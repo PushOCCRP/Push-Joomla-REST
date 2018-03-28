@@ -48,12 +48,20 @@ class PushViewCategory_articles extends JViewLegacy
     $query->select('*');
     $query->from('#__content');
     $query->where('catid="'.$id.'"');
-    $query->order_by('created desc limit"'.$page*$limit.',"'.$limit.'"');
+    $query->order($db->quoteName('created') . ' DESC limit '.$page*$limit.','.$limit.'');
     
+    $query2 = $db->getQuery(true);
+    $query2->select('COUNT(*)');
+    $query2->from('#__content');
+    $query2->where('catid="'.$id.'"');
+
+
+    //limit "'.$page.',"'.$limit.'"
     $db->setQuery((string)$query);
 
     // Load the results as a list of stdClass objects (see later for more options on retrieving data).
     $results = $db->loadObjectList();
+    $db->setQuery((string)$query2);
 
     $responseArray = [];
     $articleArray = [];
@@ -74,8 +82,8 @@ class PushViewCategory_articles extends JViewLegacy
 
     $responseArray['start_date'] = null;
     $responseArray['end_date'] = null;
-    $responseArray['total_items'] = count($results);
-    $responseArray['total_pages'] = ceil(count($results)/$limit);
+    $responseArray['total_items'] = $db->loadResult();
+    $responseArray['total_pages'] = ceil($db->loadResult()/$limit);
     $responseArray['page'] = $page;
     $responseArray['results'] = $articleArray;
     //echo var_dump($results);
