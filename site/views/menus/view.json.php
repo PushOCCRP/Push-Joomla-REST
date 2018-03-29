@@ -30,7 +30,7 @@ class PushViewMenus extends JViewLegacy
     //Get limit, default is 10
     $limit = JRequest::getVar('limit');
     $id = JRequest::getVar('id');
-    $page = JRequest::getVar('page');
+    $language = JRequest::getVar('language');
 
     if(!$limit) {
       $limit = 10;
@@ -46,8 +46,8 @@ class PushViewMenus extends JViewLegacy
     // Order it by the ordering field.
     $query->select('*');
     $query->from('#__menu');
-    $query->where('menutype="main" && language!="*" && language!="" && type!="url" || menutype="topleft" && language!="*" && language!="" && type!="url"');
-   
+    $query->where('menutype="main" && language!="*" && language!="'.$language.'" && type!="url" || menutype="topleft" && language!="*" && language!="" && type!="url"');
+    //state = 1 AND language = 'en-GB'
     
     $db->setQuery((string)$query);
 
