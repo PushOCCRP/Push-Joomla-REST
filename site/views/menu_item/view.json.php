@@ -76,7 +76,7 @@ class PushViewMenu_item extends JViewLegacy
                          'access' => $menu_item->access,
                          'img' => $menu_item->img,
                          'template_style_id' => $menu_item->template_style_id,
-                         'params' => $menu_item->params,
+                         'params' => json_decode($menu_item->params)->feature_categories,
                          'lft' => $menu_item->lft,
                          'rgt' => $menu_item->rgt,
                          'home' => $menu_item->home,
