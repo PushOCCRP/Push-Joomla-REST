@@ -49,6 +49,11 @@ class PushViewMenus extends JViewLegacy
     $query->where('menutype="main" && language="'.$language.'" && type!="url" || menutype="topleft" && language="'.$language.'" && type!="url"');
     //state = 1 AND language = 'en-GB'
     
+    
+    echo "'<script>console.log(\"$language\")</script>'";
+    
+
+
     $db->setQuery((string)$query);
 
     // Load the results as a list of stdClass objects (see later for more options on retrieving data).
@@ -92,6 +97,8 @@ class PushViewMenus extends JViewLegacy
     $responseArray['page'] = $page;
     $responseArray['results'] = $menuItemsArray;
     //echo var_dump($results);
+ 
     echo json_encode($responseArray);
+   
 	}
 }
