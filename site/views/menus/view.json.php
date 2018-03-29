@@ -50,7 +50,7 @@ class PushViewMenus extends JViewLegacy
     //state = 1 AND language = 'en-GB'
     
     
-    echo 'menutype="main" && language="'.$language.'" && type!="url" || menutype="topleft" && language="'.$language.'" && type!="url"';
+    //echo 'menutype="main" && language="'.$language.'" && type!="url" || menutype="topleft" && language="'.$language.'" && type!="url"';
     
 
 
