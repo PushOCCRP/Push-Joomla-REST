@@ -82,7 +82,7 @@ class PushViewMenu_item extends JViewLegacy
                          'home' => $menu_item->home,
                          'language' => $menu_item->language,
                          'client_id' => $menu_item->client_id,
-                         'category_ids' => ((!NULL) ? json_decode($menu_item->params)->featured_categories : filter_var($menu_item->link, FILTER_SANITIZE_NUMBER_INT))
+                         'category_ids' => ((!NULL) ? json_decode($menu_item->params)->featured_categories : intval(filter_var($menu_item->link, FILTER_SANITIZE_NUMBER_INT))
                         ];
     }
 
