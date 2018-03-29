@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class PushViewMenus extends JViewLegacy
+class PushViewMenu_item extends JViewLegacy
 {
 	/**
 	 * Display the Push view
