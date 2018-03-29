@@ -76,13 +76,13 @@ class PushViewMenu_item extends JViewLegacy
                          'access' => $menu_item->access,
                          'img' => $menu_item->img,
                          'template_style_id' => $menu_item->template_style_id,
-                         'params' => json_decode($menu_item->params)->featured_categories,
+                         'params' => $menu_item->params,
                          'lft' => $menu_item->lft,
                          'rgt' => $menu_item->rgt,
                          'home' => $menu_item->home,
                          'language' => $menu_item->language,
                          'client_id' => $menu_item->client_id,
-                         'category_id' => filter_var($menu_item->link, FILTER_SANITIZE_NUMBER_INT)
+                         'category_ids' => ((!NULL) ? json_decode($menu_item->params)->featured_categories : filter_var($menu_item->link, FILTER_SANITIZE_NUMBER_INT))
                         ];
     }
 
