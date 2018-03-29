@@ -81,7 +81,8 @@ class PushViewMenu_item extends JViewLegacy
                          'rgt' => $menu_item->rgt,
                          'home' => $menu_item->home,
                          'language' => $menu_item->language,
-                         'client_id' => $menu_item->client_id
+                         'client_id' => $menu_item->client_id,
+                         'category_id' => filter_var($menu_item->link, FILTER_SANITIZE_NUMBER_INT)
                         ];
     }
 
