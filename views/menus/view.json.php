@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class PushViewMenu_item extends JViewLegacy
+class PushViewMenus extends JViewLegacy
 {
 	/**
 	 * Display the Push view
@@ -30,7 +30,7 @@ class PushViewMenu_item extends JViewLegacy
     //Get limit, default is 10
     $limit = JRequest::getVar('limit');
     $id = JRequest::getVar('id');
-    $page = JRequest::getVar('page');
+    $language = JRequest::getVar('language');
 
     if(!$limit) {
       $limit = 10;
@@ -46,9 +46,14 @@ class PushViewMenu_item extends JViewLegacy
     // Order it by the ordering field.
     $query->select('*');
     $query->from('#__menu');
-    $query->where('id="'.$id.'"');
-   
+    $query->where('menutype="main" && language="'.$language.'" && type!="url"');
+    //state = 1 AND language = 'en-GB'
     
+    
+    //echo 'menutype="main" && language="'.$language.'" && type!="url" || menutype="topleft" && language="'.$language.'" && type!="url"';
+    
+
+
     $db->setQuery((string)$query);
 
     // Load the results as a list of stdClass objects (see later for more options on retrieving data).
@@ -93,6 +98,8 @@ class PushViewMenu_item extends JViewLegacy
     $responseArray['page'] = $page;
     $responseArray['results'] = $menuItemsArray;
     //echo var_dump($results);
+ 
     echo json_encode($responseArray);
+   
 	}
 }
