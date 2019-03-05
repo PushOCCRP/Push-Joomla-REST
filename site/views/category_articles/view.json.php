@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class PushViewArticles extends JViewLegacy
+class PushViewCategory_articles extends JViewLegacy
 {
 	/**
 	 * Display the Push view
@@ -29,6 +29,8 @@ class PushViewArticles extends JViewLegacy
 
     //Get limit, default is 10
     $limit = JRequest::getVar('limit');
+    $id = JRequest::getVar('id');
+    $page = JRequest::getVar('page');
 
     if(!$limit) {
       $limit = 10;
@@ -36,23 +38,30 @@ class PushViewArticles extends JViewLegacy
 
     // Get a db connection.
     $db = JFactory::getDbo();
-
+   
     // Create a new query object.
     $query = $db->getQuery(true);
 
     // Select all records from the user profile table where key begins with "custom.".
     // Order it by the ordering field.
+    $query = $db->getQuery(true);
     $query->select('*');
-    $query->from($db->quoteName('#__content'));
-    $query->where("state = 1 AND language = 'en-GB'");
-    $query->order('publish_up DESC');
-    $query->setLimit($limit);
-    //
-    // Reset the query using our newly populated query object.
-    $db->setQuery($query);
+    $query->from('#__content');
+    $query->where('catid="'.$id.'"');
+    $query->order($db->quoteName('created') . ' DESC limit '.$page*$limit.','.$limit.'');
+    
+    $query2 = $db->getQuery(true);
+    $query2->select('COUNT(*)');
+    $query2->from('#__content');
+    $query2->where('catid="'.$id.'"');
+
+
+    //limit "'.$page.',"'.$limit.'"
+    $db->setQuery((string)$query);
 
     // Load the results as a list of stdClass objects (see later for more options on retrieving data).
     $results = $db->loadObjectList();
+    $db->setQuery((string)$query2);
 
     $responseArray = [];
     $articleArray = [];
@@ -73,9 +82,9 @@ class PushViewArticles extends JViewLegacy
 
     $responseArray['start_date'] = null;
     $responseArray['end_date'] = null;
-    $responseArray['total_items'] = $limit;
-    $responseArray['total_pages'] = '1';
-    $responseArray['page'] = '1';
+    $responseArray['total_items'] = $db->loadResult();
+    $responseArray['total_pages'] = ceil($db->loadResult()/$limit);
+    $responseArray['page'] = $page;
     $responseArray['results'] = $articleArray;
     //echo var_dump($results);
     echo json_encode($responseArray);

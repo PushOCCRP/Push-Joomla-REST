@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since  0.0.1
  */
-class PushViewArticles extends JViewLegacy
+class PushViewCategories extends JViewLegacy
 {
 	/**
 	 * Display the Push view
@@ -31,7 +31,7 @@ class PushViewArticles extends JViewLegacy
     $limit = JRequest::getVar('limit');
 
     if(!$limit) {
-      $limit = 10;
+      $limit = 100;
     }
 
     // Get a db connection.
@@ -43,16 +43,19 @@ class PushViewArticles extends JViewLegacy
     // Select all records from the user profile table where key begins with "custom.".
     // Order it by the ordering field.
     $query->select('*');
-    $query->from($db->quoteName('#__content'));
-    $query->where("state = 1 AND language = 'en-GB'");
-    $query->order('publish_up DESC');
+    $query->from($db->quoteName('#__categories'));
+    $query->order('created_time DESC');
     $query->setLimit($limit);
+
+    $model_categories = JCategories::getInstance('Content');
+    $root = $model_categories->get('root');
+    $categories = $root->getChildren();
     //
     // Reset the query using our newly populated query object.
     $db->setQuery($query);
 
     // Load the results as a list of stdClass objects (see later for more options on retrieving data).
-    $results = $db->loadObjectList();
+    $results = $categories;
 
     $responseArray = [];
     $articleArray = [];
@@ -62,10 +65,9 @@ class PushViewArticles extends JViewLegacy
       }
 
       $articleArray[] = ['headline' => $article->title,
-                         'description' => $article->introtext,
-                         'body' => $article->fulltext,
-                         'author' => $article->created_by_alias,
-                         'publish_date' => $article->publish_up,
+                         'description' => $article->description,
+                         'body' => $article->params,
+                         'publish_date' => $article->created_time,
                          'id' => $article->id,
                          'language' => $article->language
                         ];
